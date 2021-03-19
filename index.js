@@ -1,0 +1,113 @@
+const { Producto } = require("./producto");
+const express = require('express');
+const handlebars = require('express-handlebars');
+const path = require('path');
+
+const app = express();
+const router = express.Router();
+const port = 8080;
+
+app.engine("hbs",
+    handlebars({
+        extname: ".hbs",
+        defaultLayout: 'index.hbs',
+        layoutsDir: path.join(__dirname,"/views/layouts"),
+        partialsDir: path.join(__dirname,"/views/partials/")
+    })
+);
+
+app.set("view engine", "hbs");
+app.set("views", "./views");
+
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api', router);
+
+let listaProductos = [];
+//Home
+app.get('/', (req, res) => {
+    res.render("formularioCarga");
+});
+
+//Listar todos los productos
+router.get('/productos/listar', (req, res) => {
+    //Hay productos?
+    if (listaProductos.length > 0) {
+        res.status(200).json({
+            productos: listaProductos
+        });
+    } else {
+        res.status(400).json({
+            error: 'no hay productos cargados'
+        });
+    }
+});
+
+//Listar un unico producto por ID
+router.get('/productos/listar/:id', (req, res) => {
+    let productosEncontrados = listaProductos.filter(prod => prod.id == req.params.id);
+    if (productosEncontrados.length < 1) {
+        res.status(400).json({
+            error: 'producto no encontrado'
+        });
+    } else {
+        res.status(200).json({
+            producto: productosEncontrados[0]
+        })
+    }
+});
+
+//Almacenar un nuevo producto. Retornar el producto creado
+router.post('/productos/guardar', (req, res) => {
+    let producto = new Producto(req.body.title, req.body.price, req.body.thumbnail);
+    producto.id = listaProductos.length;
+    listaProductos.push(producto);
+    res.status(200).render("formularioCarga",{productoCargado:true});
+});
+
+//Actualizar producto
+router.put('/productos/actualizar/:id', (req, res) => {
+    //Obtener producto
+    let producto = req.body;
+    //Buscar producto en la lista
+    let productosEncontrados = listaProductos.filter(prod => prod.id == producto.id);
+    if (productosEncontrados.length > 0) {
+        producto.id = productosEncontrados[0].id;
+        listaProductos[req.params.id] = producto;
+        res.status(200).json(producto);
+    } else {
+        res.status(400).json({
+            error: 'Producto no encontrado'
+        })
+    }
+
+});
+
+//Borrar producto
+router.delete('/productos/borrar/:id', (req, res) => {
+    let productosRemovidos = listaProductos.splice(req.params.id, 1);
+    if (productosRemovidos.length > 0) {
+        res.status(200).json(productosRemovidos[0]);
+    } else {
+        res.status(400).json({
+            error: 'Producto no encontrado'
+        })
+    }
+});
+
+app.get("/productos/vista",(req,res) => {
+    if(listaProductos.length > 0){
+        res.render("main",{productos: listaProductos, hayProductos:true});
+    }
+    else{
+        res.render("main",{hayProductos:false});
+    }
+});
+
+//Iniciar servidor
+app.listen(port, () => {
+    console.log("Servidor iniciado en el puerto " + port);
+}).on("error", (err) => {
+    consolelog("Hubo un error: " + err);
+});
