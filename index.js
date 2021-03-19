@@ -75,7 +75,7 @@ router.put('/productos/actualizar/:id', (req, res) => {
     //Obtener producto
     let producto = req.body;
     //Buscar producto en la lista
-    let productosEncontrados = listaProductos.filter(prod => prod.id == producto.id);
+    let productosEncontrados = listaProductos.filter(prod => prod.id == req.params.id);
     if (productosEncontrados.length > 0) {
         producto.id = productosEncontrados[0].id;
         listaProductos[req.params.id] = producto;
