@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 
 //Listar todos los productos
 router.get('/productos/listar', (req, res) => {
+    console.log("API - Listar Productos");
     //Hay productos?
     if (listaProductos.length > 0) {
         res.status(200).json({
@@ -46,6 +47,7 @@ router.get('/productos/listar', (req, res) => {
 
 //Listar un unico producto por ID
 router.get('/productos/listar/:id', (req, res) => {
+    console.log("API - Buscar Producto");
     let productosEncontrados = listaProductos.filter(prod => prod.id == req.params.id);
     if (productosEncontrados.length < 1) {
         res.status(400).json({
@@ -60,6 +62,7 @@ router.get('/productos/listar/:id', (req, res) => {
 
 //Almacenar un nuevo producto. Retornar el producto creado
 router.post('/productos/guardar', (req, res) => {
+    console.log("API - Guardar Producto");
     let producto = new Producto(req.body.title, req.body.price, req.body.thumbnail);
     producto.id = listaProductos.length;
     listaProductos.push(producto);
@@ -68,6 +71,7 @@ router.post('/productos/guardar', (req, res) => {
 
 //Actualizar producto
 router.put('/productos/actualizar/:id', (req, res) => {
+    console.log("API - Actualizar Producto");
     //Obtener producto
     let producto = req.body;
     //Buscar producto en la lista
@@ -86,6 +90,7 @@ router.put('/productos/actualizar/:id', (req, res) => {
 
 //Borrar producto
 router.delete('/productos/borrar/:id', (req, res) => {
+    console.log("API - Borrar Producto");
     let productosRemovidos = listaProductos.splice(req.params.id, 1);
     if (productosRemovidos.length > 0) {
         res.status(200).json(productosRemovidos[0]);
@@ -109,5 +114,5 @@ app.get("/productos/vista",(req,res) => {
 app.listen(port, () => {
     console.log("Servidor iniciado en el puerto " + port);
 }).on("error", (err) => {
-    consolelog("Hubo un error: " + err);
+    console.log("Hubo un error: " + err);
 });
