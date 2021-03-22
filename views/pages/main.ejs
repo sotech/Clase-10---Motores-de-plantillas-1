@@ -1,6 +1,7 @@
+<%- include('../partials/header.ejs'); %>
 <h2 class="text-primary text-center">Vista de Productos</h2>
 <div class="container">
-    {{#if hayProductos}}
+    <% if (hayProductos) { %>
     <table class="table table-dark">
         <thead>
             <th>Nombre</th>
@@ -8,18 +9,18 @@
             <th>Foto</th>
         </thead>
         <tbody>
-            {{#each productos}}
+            <% productos.forEach(function(producto) {%>
             <tr>
-                <td>{{this.title}}</td>
-                <td>${{this.price}}</td>
-                <td><img src="{{this.thumbnail}}" width="50px" height="50px"></td>
+                <td><%= producto.title%></td>
+                <td><%= producto.price%></td>
+                <td><img src= <%= producto.thumbnail %> width="50px" height="50px"></td>
             </tr>
-            {{/each}}
+            <% }); %>
         </tbody>
     </table>
-    {{else}}
+    <%}else{%>
     <div class="container-fluid">
         <h2 class="alert alert-danger text-center">No hay productos cargados</h2>
     </div>
-    {{/if}}
+    <%}%>
 </div>

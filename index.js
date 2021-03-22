@@ -7,8 +7,7 @@ const router = express.Router();
 const port = 8080;
 
 
-app.set("view engine", "hbs");
-app.set("views", "./views");
+app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
@@ -18,7 +17,7 @@ app.use('/api', router);
 let listaProductos = [];
 //Home
 app.get('/', (req, res) => {
-    res.render("formularioCarga");
+    res.render("pages/formularioCarga", {productoCargado:false});
 });
 
 //Listar todos los productos
@@ -57,7 +56,7 @@ router.post('/productos/guardar', (req, res) => {
     let producto = new Producto(req.body.title, req.body.price, req.body.thumbnail);
     producto.id = listaProductos.length;
     listaProductos.push(producto);
-    res.status(200).render("formularioCarga",{productoCargado:true});
+    res.status(200).render("pages/formularioCarga.ejs",{productoCargado:true});
 });
 
 //Actualizar producto
@@ -94,10 +93,10 @@ router.delete('/productos/borrar/:id', (req, res) => {
 
 app.get("/productos/vista",(req,res) => {
     if(listaProductos.length > 0){
-        res.render("main",{productos: listaProductos, hayProductos:true});
+        res.render("pages/main",{productos: listaProductos, hayProductos:true});
     }
     else{
-        res.render("main",{hayProductos:false});
+        res.render("pages/main",{hayProductos:false});
     }
 });
 

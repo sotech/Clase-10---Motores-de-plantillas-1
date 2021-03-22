@@ -1,3 +1,4 @@
+<%- include('../partials/header.ejs'); %>
 <h1 class="text-primary text-center">Ingrese Producto</h1>
 <div class="container">
     <form action="/api/productos/guardar" method="POST">
@@ -15,5 +16,10 @@
         </div>
         <button class="btn btn-success" type="submit" >Guardar</button>
     </form>
-    <span class="alert alert-red" style="visibility: {{#if productoCargado}}visible{{else}}hidden{{/if}};">Producto cargado correctamente</span>
+    <% if (productoCargado){
+        productoCargado = "\'visibility:visible\'" 
+    } else {
+        productoCargado ="\'visibility:hidden\'" 
+    }; %>
+    <span class="alert alert-red" style= <%- productoCargado %>>Producto cargado correctamente</span>
 </div>
