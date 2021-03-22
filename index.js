@@ -7,16 +7,7 @@ const app = express();
 const router = express.Router();
 const port = 8080;
 
-app.engine("hbs",
-    handlebars({
-        extname: ".hbs",
-        defaultLayout: 'index.hbs',
-        layoutsDir: path.join(__dirname,"/views/layouts"),
-        partialsDir: path.join(__dirname,"/views/partials/")
-    })
-);
-
-app.set("view engine", "hbs");
+app.set("view engine", "pug");
 app.set("views", "./views");
 
 app.use(express.static(path.join(__dirname, '/public')));
@@ -25,9 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', router);
 
 let listaProductos = [];
+
 //Home
 app.get('/', (req, res) => {
-    res.render("formularioCarga");
+    res.render("formularioCarga.pug");
 });
 
 //Listar todos los productos
