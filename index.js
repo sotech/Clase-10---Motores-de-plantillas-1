@@ -1,20 +1,11 @@
 const { Producto } = require("./producto");
 const express = require('express');
-const handlebars = require('express-handlebars');
 const path = require('path');
 
 const app = express();
 const router = express.Router();
 const port = 8080;
 
-app.engine("hbs",
-    handlebars({
-        extname: ".hbs",
-        defaultLayout: 'index.hbs',
-        layoutsDir: path.join(__dirname,"/views/layouts"),
-        partialsDir: path.join(__dirname,"/views/partials/")
-    })
-);
 
 app.set("view engine", "hbs");
 app.set("views", "./views");
