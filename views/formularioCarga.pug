@@ -1,5 +1,15 @@
 html
-    head
-        title='Bienvenido a Pug'
-    body
-        h1=mensaje
+    h1(class="text-primary text-center")="Ingrese Producto"
+    div(class="container")
+        form(action="/api/productos/guardar" method="POST")
+            div(class="form-group")
+                label(for="title" class="font-italic font-weight-bold")=Nombre
+                input(class="form-control" type="text" name="title" id="title" placeholder="Ingrese un Titulo")
+            div(class="form-group")
+                label(for="price" class="font-italic font-weight-bold")=Precio
+                input(class="form-control" type="text" name="price" id="price" placeholder="Ingrese un Precio")
+            div(class="form-group")
+                label(for="thumbnail" class="font-italic font-weight-bold")=Foto URL
+                input(class="form-control" type="text" name="thumbnail" id="thumbnail" placeholder="Ingrese una URL")
+            button(class="btn btn-success" type="submit")=Guardar
+        span(class="alert alert-red" style="visibility: {{#if productoCargado}}visible{{else}}hidden{{/if}};")=Producto cargado correctamente
