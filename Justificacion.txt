@@ -1,0 +1,6 @@
+Elijo quedarme con EJS.
+Handlebars es bueno y la sintaxis de pug me recuerda a python que tambien manejo,
+pero aun asi siento que EJS es muy parecido a Razor, lo cual me es muy familiar. 
+
+La instalacion de EJS fue muy facil, en contraste a Handlebars (que senti un poco mas tedioso) y su uso luego de revisar la documentacion me resulto conveniente a la hora de escribir codigo entre lineas(que no es aprender una sintaxis totalmente nueva como con PUG), y el pasaje de datos fue mas facil de manejar.
+Con un poco de practica se nota porque es tan usado y con buen rating, por lo que es mi decision usarlo
