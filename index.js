@@ -57,7 +57,7 @@ router.post('/productos/guardar', (req, res) => {
     let producto = new Producto(req.body.title, req.body.price, req.body.thumbnail);
     producto.id = listaProductos.length;
     listaProductos.push(producto);
-    res.status(200).render("formularioCarga",{productoCargado:true});
+    res.status(200).render("formularioCarga.pug",{productoCargado:true});
 });
 
 //Actualizar producto
