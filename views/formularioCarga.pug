@@ -1,16 +1,15 @@
-html
-    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
-    h1(class="text-primary text-center") Ingrese Producto
-    div(class="container")
-        form(action="/api/productos/guardar", method="post")
-            div(class="form-group")
-                label(for="title" class="font-italic font-weight-bold") Nombre
-                input(class="form-control" type="text" name="title" id="title" placeholder="Ingrese un Titulo")
-            div(class="form-group")
-                label(for="price" class="font-italic font-weight-bold") Precio
-                input(class="form-control" type="text" name="price" id="price" placeholder="Ingrese un Precio")
-            div(class="form-group")
-                label(for="thumbnail" class="font-italic font-weight-bold") Foto URL
-                input(class="form-control" type="text" name="thumbnail" id="thumbnail" placeholder="Ingrese una URL")            
-            input(class="btn btn-success", type="submit", value="Guardar")
-        span(class="alert alert-red" style=productoCargadovisible ? "visibility : visible" : "visibility : hidden") Producto cargado correctamente
+link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+h1.text-primary.text-center Ingrese Producto
+.container
+  form(action='/api/productos/guardar' method='POST')
+    .form-group
+      label.font-italic.font-weight-bold(for='title') Nombre
+      input#title.form-control(type='text' name='title' placeholder='Ingrese un Titulo')
+    .form-group
+      label.font-italic.font-weight-bold(for='price') Precio
+      input#price.form-control(type='text' name='price' placeholder='Ingrese un Precio')
+    .form-group
+      label.font-italic.font-weight-bold(for='thumbnail') Foto URL
+      input#thumbnail.form-control(type='text' name='thumbnail' placeholder='Ingrese una URL')
+    button.btn.btn-success(type='submit') Guardar
+  span.alert.alert-red(style= productoCargado ? "visibility: visible" : "visibility : hidden") Producto cargado correctamente
